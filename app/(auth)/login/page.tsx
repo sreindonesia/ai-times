@@ -5,19 +5,11 @@ import AuthenticationContainer from "../components/AuthenticationContainer";
 
 const LoginPage = () => {
   return (
-    <div className="w-screen h-screen bg-bg-primary-light grid place-content-center relative">
-      <img
-        src={"/login-bg.png"}
-        width={720}
-        height={720}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-        alt="Login background"
-      />
-      <AuthenticationContainer title="Dashboard Monitoring">
+    <div className="w-screen h-screen bg-primary grid place-content-center relative overflow-hidden">
+      {/* BACKGROUND TEXT */}
+      <p className="absolute -bottom-8 right-0 font-semibold text-[255px] leading-[255px] text-white opacity-10">AITimes</p>
+      <AuthenticationContainer>
         <LoginForm />
-        <Link href={"/forgot-password"}>
-          <p className="text-bg-primary-light text-sm font-semibold">Lupa password?</p>
-        </Link>
       </AuthenticationContainer>
     </div>
   );

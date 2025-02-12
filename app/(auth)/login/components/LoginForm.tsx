@@ -12,6 +12,7 @@ import { LoginSuccessResponse } from "../types";
 import { setCookie } from "cookies-next";
 import { useToast } from "@/app/components/Toast/useToast";
 import { noAuthRequest } from "@/services/request";
+import Link from "next/link";
 
 const loginSchema = z
   .object({
@@ -86,6 +87,9 @@ const LoginForm = () => {
             placeholder="Masukkan email yang terdaftar"
           />
           <FormTextPassword control={control} label="Password" name="password" />
+          <Link href={"/forgot-password"}>
+            <p className="text-primary text-sm font-semibold hover:underline">Lupa password?</p>
+          </Link>
           <Button
             size="md"
             color="primary"

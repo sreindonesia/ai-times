@@ -2,12 +2,11 @@ import React from "react";
 
 interface AuthenticationContainerProps {
   children?: React.ReactNode;
-  title: string;
 }
-const AuthenticationContainer = ({ children, title }: AuthenticationContainerProps) => {
+const AuthenticationContainer = ({ children }: AuthenticationContainerProps) => {
   return (
-    <div className="bg-white w-[400px] p-8 gap-6 flex flex-col rounded-lg shadow-md relative z-10">
-      <p className="font-inter font-medium text-gray-700 text-xl">{title}</p>
+    <div className="bg-white w-[400px] py-[50px] px-[30px] gap-[50px] flex flex-col rounded-lg shadow-md relative z-10">
+      <p className="text-zinc-200 font-bold text-[84px] leading-[88px] tracking-normal">AITimes</p>
       {children}
     </div>
   );

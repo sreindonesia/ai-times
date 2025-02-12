@@ -1,7 +1,7 @@
 "use client";
 
 import { Label, TextInput } from "flowbite-react";
-import { Eye, EyeSlash } from "flowbite-react-icons/outline";
+import { Eye, EyeSlash } from "flowbite-react-icons/solid";
 import React, { useState } from "react";
 import { Controller, FieldValues, useController, UseControllerProps } from "react-hook-form";
 
@@ -53,7 +53,7 @@ const FormTextPassword = <T extends FieldValues>({
               )}
               helperText={
                 errors[name] ? (
-                  <span>{errors[name].message as string}</span>
+                  <span>{errors[name]?.message as string}</span>
                 ) : (
                   <span>{helperText}</span>
                 )
