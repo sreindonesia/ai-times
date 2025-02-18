@@ -18,8 +18,7 @@ const Sidebar = () => {
       <div className="flex flex-col justify-between h-full">
         {/* Menu */}
         <nav className="flex flex-col gap-5">
-          <SidebarMenu></SidebarMenu>
-          <SidebarMenu></SidebarMenu>
+          <SidebarMenu />
         </nav>
 
         {/* Signout */}
