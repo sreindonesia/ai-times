@@ -12,19 +12,20 @@ interface TextProps {
   name: string;
   value: string[];
   max?: number;
-  setValue: (name: string, value: string[]) => void;
+  setValue: (name: string, value: string[], config?: Record<string, unknown>) => void;
   placeholder?: string;
 }
 
 const FormTextAreaWithChip = ({ setValue, value, label, name, max, placeholder }: TextProps) => {
   const onClickEnterHandler = (text: string) => {
-    setValue(name, [...value, text]);
+    setValue(name, [...value, text], { shouldValidate: true });
   };
 
   const onDeleteHandler = (text: string) => {
     setValue(
       name,
-      value.filter((val) => val !== text)
+      value.filter((val) => val !== text),
+      { shouldValidate: true }
     );
   };
 

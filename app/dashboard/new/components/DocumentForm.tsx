@@ -12,11 +12,17 @@ import FormTextAreaWithChip from "@/app/components/Forms/TextArea/FormTextAreaWi
 import AiTimesButton from "@/app/components/Button";
 
 const DocumentForm = () => {
-  const { control, setValue, watch } = useForm<AddDocumentType>({
+  const {
+    control,
+    setValue,
+    watch,
+    formState: { isValid, errors },
+  } = useForm<AddDocumentType>({
     resolver: zodResolver(addDocumentSchema),
+    mode: "onChange"
   });
 
-  console.log(watch());
+  console.log(watch(), errors);
   return (
     <div className="flex flex-col h-full pr-[30px] py-5 pl-5 gap-5 justify-between">
       <div className="flex flex-col gap-5">
@@ -73,7 +79,7 @@ const DocumentForm = () => {
           max={3}
         />
       </div>
-      <AiTimesButton color="primary" size="lg" className="mb-5">
+      <AiTimesButton color="primary" size="lg" className="mb-5" disabled={!isValid}>
         Generate
       </AiTimesButton>
     </div>
