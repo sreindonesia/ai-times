@@ -1,5 +1,7 @@
 import type { Config } from "tailwindcss";
 import * as flowbite from "flowbite-react/tailwind";
+import typography from "@tailwindcss/typography";
+
 
 export default {
   content: [
@@ -17,5 +19,5 @@ export default {
       },
     },
   },
-  plugins: [flowbite.plugin()],
+  plugins: [flowbite.plugin(), typography],
 } satisfies Config;
