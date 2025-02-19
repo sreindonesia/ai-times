@@ -4,6 +4,7 @@ import { Button } from "flowbite-react";
 const SIZES = {
   md: "py-2.5 px-5 text-base",
   sm: "py-2 px-3 text-sm font-medium",
+  lg: "py-3 px-4 text-base font-medium"
 };
 
 const COLORS = {
@@ -13,7 +14,7 @@ const COLORS = {
   primary: "bg-primary text-white hover:opacity:90"
 };
 
-interface FpButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface AiTimesButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: keyof typeof SIZES;
   color: keyof typeof COLORS;
   disabled?: boolean;
@@ -22,7 +23,7 @@ interface FpButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
 }
 
-const FpButton = ({
+const AiTimesButton = ({
   size,
   color,
   disabled,
@@ -30,7 +31,7 @@ const FpButton = ({
   children,
   className,
   ...props
-}: FpButtonProps) => {
+}: AiTimesButtonProps) => {
   return (
     <Button
       disabled={disabled || isLoading}
@@ -56,4 +57,4 @@ const FpButton = ({
   );
 };
 
-export default FpButton;
+export default AiTimesButton;
