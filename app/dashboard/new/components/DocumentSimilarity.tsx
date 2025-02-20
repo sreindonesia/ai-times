@@ -2,7 +2,7 @@
 
 import AiTimesButton from "@/app/components/Button";
 import React, { useState } from "react";
-import DocumentSidebar from "./DocumentSidebar";
+import DocumentSidebar from "./Sidebar/DocumentSidebar";
 
 const DocumentSimilarity = () => {
   const [openSidebar, setOpenSidebar] = useState(false);
