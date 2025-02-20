@@ -24,7 +24,7 @@ const DocumentForm = () => {
 
   console.log(watch(), errors);
   return (
-    <div className="flex flex-col h-full pr-[30px] py-5 pl-5 gap-5 justify-between">
+    <div className="flex flex-col h-full pr-[30px] w-full py-5 pl-5 gap-5 justify-between">
       <div className="flex flex-col gap-5">
         <div className="flex items-center gap-2.5">
           <Bars size={32} />
