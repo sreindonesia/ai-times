@@ -37,7 +37,7 @@ const AiTimesButton = ({
       disabled={disabled || isLoading}
       className={className}
       theme={{
-        base: "group relative flex items-stretch  justify-center text-center font-medium transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:outline-none disabled:opacity-60 hover:opacity-90",
+        base: "group relative flex items-stretch  justify-center text-center font-medium transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:outline-none disabled:bg-gray-400 disabled:text-gray-800 enabled:hover:opacity-90",
         inner: {
           base: "",
         },
