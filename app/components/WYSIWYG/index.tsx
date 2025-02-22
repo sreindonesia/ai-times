@@ -12,10 +12,10 @@ interface WYSIWYGProps {
 const WYSIWYG = ({ initialContent, onUpdate, readonly }: WYSIWYGProps) => {
   return (
     <div
-      className={`w-full rounded-lg ${!readonly && "border border-gray-200"} bg-gray-50 `}
+      className={`w-full rounded-lg ${!readonly && "border border-gray-200"} `}
     >
       <EditorProvider
-        slotBefore={
+        slotAfter={
           !readonly && <MenuBar initialContent={initialContent || ""} />
         }
         extensions={extensions}

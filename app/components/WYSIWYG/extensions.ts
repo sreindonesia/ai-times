@@ -11,6 +11,7 @@ import Link from "@tiptap/extension-link";
 import BulletList from "@tiptap/extension-bullet-list";
 import OrderedList from "@tiptap/extension-ordered-list";
 import ListItem from "@tiptap/extension-list-item";
+import Heading from '@tiptap/extension-heading'
 
 // define your extension array
 export const extensions = [
@@ -25,6 +26,9 @@ export const extensions = [
   BulletList,
   OrderedList,
   ListItem,
+	Heading.configure({
+		levels: [1, 2],
+	}),
   Placeholder.configure({
     placeholder: "Tulis disini...",
   }),
