@@ -2,25 +2,26 @@
 import axios, { AxiosRequestHeaders, isAxiosError } from "axios";
 import { getCookie } from "cookies-next";
 
-const folurApi = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+const aiTimesApi = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_BE_API_URL,
 });
 
 export interface RequestReturnValue<T> {
   isError: boolean;
   message: string;
   res: T | null;
+  statusCode: number;
 }
 
 export const noAuthRequest = async <T>(
   url: string,
-  method: string, 
+  method: string,
   data?: Record<string, unknown>,
   headers?: AxiosRequestHeaders
 ): Promise<RequestReturnValue<T>> => {
   const appendedHeaders = headers || {};
   try {
-    const res = await folurApi({
+    const res = await aiTimesApi({
       method,
       url,
       data,
@@ -33,6 +34,7 @@ export const noAuthRequest = async <T>(
       isError: false,
       message: "success",
       res: res.data,
+      statusCode: 200,
     };
   } catch (err) {
     console.log(err);
@@ -41,12 +43,14 @@ export const noAuthRequest = async <T>(
         isError: true,
         message: err.response?.data.error || err.response?.data.message,
         res: null,
+        statusCode: err.response?.status || 500,
       };
     } else {
       return {
         isError: true,
         message: (err as Error).message,
         res: null,
+        statusCode: 500,
       };
     }
   }
@@ -74,11 +78,12 @@ export const request = async <T>(
     },
   };
   try {
-    const res = await folurApi(payload);
+    const res = await aiTimesApi(payload);
     return {
       isError: false,
       message: "success",
       res: res.data,
+      statusCode: 200,
     };
   } catch (err) {
     console.log(err);
@@ -87,12 +92,14 @@ export const request = async <T>(
         isError: true,
         message: err.response?.data.error || err.response?.data.message,
         res: null,
+        statusCode: err.response?.status || 500,
       };
     } else {
       return {
         isError: true,
         message: (err as Error).message,
         res: null,
+        statusCode: 500,
       };
     }
   }
