@@ -38,30 +38,29 @@ const LoginForm = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: (data: Schema) => {
-      return noAuthRequest<LoginSuccessResponse>("/login", "POST", data);
+      return noAuthRequest<LoginSuccessResponse>("/auth/login", "POST", data);
     },
     onSuccess: (data) => {
-      const { isError, res } = data;
+      const { isError, res, statusCode } = data;
       if (isError || !res) {
-        const { message: errorMessage } = data as unknown as { message: string };
-        if (errorMessage === "Email dan password tidak sesuai.") {
+        if (statusCode === 401) {
           toast({
             type: "error",
-            message: errorMessage,
+            message: "Pastikan email dan password sudah benar",
           });
         } else {
           setError("email", {
             type: "validate",
-            message: errorMessage,
+            message: "Terjadi kesalahan, silahkan coba lagi",
           });
         }
         return;
       }
 
-      const { id, email, name, role } = res;
-      setCookie("user", JSON.stringify({ id, email, name, role }));
+      const { access_token } = res;
+      setCookie("ai_times_token", access_token);
       queryClient.clear();
-      router.push("/dashboard/profile");
+      router.push("/dashboard/news");
     },
   });
 
