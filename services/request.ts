@@ -73,7 +73,7 @@ export const request = async <T>(
     data,
     timeout: 0,
     headers: {
-      Authorization: `Bearer ${getCookie("accessToken") || ""}`,
+      Authorization: `Bearer ${getCookie("ai_times_token") || ""}`,
       ...appendedHeaders,
     },
   };

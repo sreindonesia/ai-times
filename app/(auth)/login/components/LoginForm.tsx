@@ -60,7 +60,7 @@ const LoginForm = () => {
       const { access_token } = res;
       setCookie("ai_times_token", access_token);
       queryClient.clear();
-      router.push("/dashboard/news");
+      router.push("/dashboard");
     },
   });
 

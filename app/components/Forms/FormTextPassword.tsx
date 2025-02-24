@@ -47,7 +47,7 @@ const FormTextPassword = <T extends FieldValues>({
               type={isPasswordShown ? "text" : "password"}
               color={errors[name] ? "failure" : "gray"}
               rightIcon={() => (
-                <button onClick={() => setIsPasswordShown((prev) => !prev)}>
+                <button onClick={() => setIsPasswordShown((prev) => !prev)} tabIndex={-1} type="button">
                   {isPasswordShown ? <EyeSlash /> : <Eye />}
                 </button>
               )}
