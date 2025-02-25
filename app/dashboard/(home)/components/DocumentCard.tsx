@@ -3,9 +3,9 @@ import Link from "next/link";
 import React from "react";
 import { News } from "../../types";
 
-const DocumentCard = ({ title, content, updatedAt }: News) => {
+const DocumentCard = ({ title, content, updatedAt, id }: News) => {
   return (
-    <Link href={"/dashboard/new"}>
+    <Link href={`/dashboard/${id}`}>
       <div className="w-[150px] h-[200px] bg-white shadow-md hover:bg-gray-50 flex flex-col justify-between gap-1">
         {/* CONTENT */}
         <div className="flex flex-col p-2.5 gap-1">

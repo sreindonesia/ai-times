@@ -10,8 +10,9 @@ import FormDropdownSingle from "@/app/components/Forms/Dropdown/FormDropdownSing
 import { TONE_OPTIONS } from "../constants";
 import FormTextAreaWithChip from "@/app/components/Forms/TextArea/FormTextAreaWithChip";
 import AiTimesButton from "@/app/components/Button";
+import { News } from "../../types";
 
-const DocumentForm = () => {
+const DocumentForm = ({ defaultValues }: { defaultValues?: News }) => {
   const {
     control,
     setValue,
@@ -19,6 +20,9 @@ const DocumentForm = () => {
     formState: { isValid, errors },
   } = useForm<AddDocumentType>({
     resolver: zodResolver(addDocumentSchema),
+    defaultValues: {
+      title: defaultValues?.title,
+    },
     mode: "onChange"
   });
 

@@ -12,7 +12,7 @@ interface WYSIWYGProps {
 const WYSIWYG = ({ initialContent, onUpdate, readonly }: WYSIWYGProps) => {
   return (
     <div
-      className={`w-full rounded-lg ${!readonly && "border border-gray-200"} `}
+      className={`w-full rounded-lg ${!readonly && "border border-gray-200"} flex flex-col h-full [&>div:first-child]:h-full`}
     >
       <EditorProvider
         slotAfter={
@@ -22,7 +22,7 @@ const WYSIWYG = ({ initialContent, onUpdate, readonly }: WYSIWYGProps) => {
         content={initialContent}
         editorProps={{
           attributes: {
-            class: ` ${!readonly && "min-h-[300px] max-h-[calc(100vh-550px)]"} focus:outline-none p-4 bg-white overflow-y-auto`,
+            class: ` ${!readonly && "h-full"} focus:outline-none p-4 bg-white overflow-y-auto`,
           },
         }}
         onUpdate={onUpdate}

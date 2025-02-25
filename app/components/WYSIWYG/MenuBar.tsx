@@ -16,8 +16,7 @@ const MenuBar = ({ initialContent }: { initialContent: string }) => {
 
   useEffect(() => {
     if (editor && initialContent) {
-      const initialJSON = JSON.parse(initialContent);
-      editor.commands.setContent(initialJSON);
+      editor.commands.setContent(initialContent);
     }
   }, [initialContent, editor]);
 
