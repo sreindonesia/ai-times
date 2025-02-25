@@ -12,3 +12,14 @@ export const TONE_OPTIONS = [
     value: "positive"
   },
 ]
+
+export const LANG_OPTIONS = [
+  {
+    label: "English",
+    value: "EN"
+  },
+  {
+    label: "Bahasa Indonesia",
+    value: "ID"
+  }
+]

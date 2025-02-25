@@ -68,7 +68,7 @@ const FormDropdownSingle = ({
               errorMessage && "text-red-700"
             )}
           >
-            {value || placeholder}
+            {options.find((option) => option.value === value)?.label || placeholder}
           </span>
         }
         inline

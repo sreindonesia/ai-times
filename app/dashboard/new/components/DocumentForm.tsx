@@ -7,7 +7,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { addDocumentSchema, AddDocumentType } from "../types";
 import FormDropdownSingle from "@/app/components/Forms/Dropdown/FormDropdownSingle";
-import { TONE_OPTIONS } from "../constants";
+import { LANG_OPTIONS, TONE_OPTIONS } from "../constants";
 import FormTextAreaWithChip from "@/app/components/Forms/TextArea/FormTextAreaWithChip";
 import AiTimesButton from "@/app/components/Button";
 import { News } from "../../types";
@@ -17,7 +17,7 @@ const DocumentForm = ({ defaultValues }: { defaultValues?: News }) => {
     control,
     setValue,
     watch,
-    formState: { isValid, errors },
+    formState: { isValid },
   } = useForm<AddDocumentType>({
     resolver: zodResolver(addDocumentSchema),
     defaultValues: {
@@ -26,7 +26,6 @@ const DocumentForm = ({ defaultValues }: { defaultValues?: News }) => {
     mode: "onChange"
   });
 
-  console.log(watch(), errors);
   return (
     <div className="flex flex-col h-full pr-[30px] w-full py-5 pl-5 gap-5 justify-between">
       <div className="flex flex-col gap-5">
@@ -36,6 +35,20 @@ const DocumentForm = ({ defaultValues }: { defaultValues?: News }) => {
             <FormText label="" name="title" control={control} placeholder="Untitled Document" />
           </div>
         </div>
+        <FormDropdownSingle
+          name="language"
+          options={LANG_OPTIONS}
+          placeholder="Pilih bahasa"
+          label="Bahasa"
+          setValue={
+            setValue as (
+              name: string,
+              value: string | number,
+              config?: Record<string, unknown>
+            ) => void
+          }
+          value={watch().language}
+        />
         <FormText label="Topic" name="topic" control={control} placeholder="Topik dokumen" />
         <FormDropdownSingle
           name="category"

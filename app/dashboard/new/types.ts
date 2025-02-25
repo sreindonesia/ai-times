@@ -4,6 +4,7 @@ export const addDocumentSchema = z.object({
   title: z.string(),
   topic: z.string(),
   category: z.string(),
+  language: z.string().min(2, "Bahasa harus berupa EN atau ID"),
   tone: z.string(),
   keywords: z.array(
     z.string().refine((value) => value.split(" ").length <= 5, {
