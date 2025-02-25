@@ -1,5 +1,5 @@
-import AiTimesButton from '@/app/components/Button'
-import { Refresh } from 'flowbite-react-icons/outline'
+//import AiTimesButton from '@/app/components/Button'
+//import { Refresh } from 'flowbite-react-icons/outline'
 import React from 'react'
 import SimilarityCard from './SimilarityCard'
 
@@ -13,12 +13,12 @@ const SimilarityDetails = () => {
 					<span className='font-bold'>Overall Similarity</span>
 				</div>
 
-				<AiTimesButton color='primary' size='md'>
+				{/*<AiTimesButton color='primary' size='md'>
 					<div className="flex items-center">
 						<Refresh color='white'/>
 						Refresh
 					</div>
-				</AiTimesButton>
+				</AiTimesButton>*/}
 			</div>
 
 			<SimilarityCard />

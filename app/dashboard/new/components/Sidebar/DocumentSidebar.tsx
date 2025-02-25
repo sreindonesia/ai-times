@@ -8,7 +8,7 @@ interface DocumentSidebarProps {
 const DocumentSidebar = ({ setOpenSidebar }: DocumentSidebarProps) => {
   const sidebarRef = useClickOutside(() => setOpenSidebar(false));
   return (
-    <div className="w-[350px] h-screen border-l border-zinc-500" ref={sidebarRef}>
+    <div className="w-[350px] h-screen border-l border-zinc-300" ref={sidebarRef}>
       <SidebarTab />
     </div>
   );
