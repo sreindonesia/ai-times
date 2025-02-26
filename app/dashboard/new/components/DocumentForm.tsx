@@ -17,8 +17,11 @@ import FormTextAreaWithChip from "@/app/components/Forms/TextArea/FormTextAreaWi
 import AiTimesButton from "@/app/components/Button";
 import { News } from "../../types";
 import FormTextArea from "@/app/components/Forms/TextArea/FormTextArea";
+import { request } from "@/services/request";
+import { useToast } from "@/app/components/Toast/useToast";
 
 const DocumentForm = ({}: { defaultValues?: News }) => {
+  const toast = useToast();
   const {
     control,
     setValue,
@@ -31,8 +34,19 @@ const DocumentForm = ({}: { defaultValues?: News }) => {
     mode: "onChange",
   });
 
-  const onSubmitForm = (data: AddDocumentType) => {
-    console.log(data);
+  const onSubmitForm = async (data: AddDocumentType) => {
+    const createNewsPayload = {
+      reference: data.references.toString(),
+      topic: data.topic,
+      tone: data.tone,
+      language: data.language,
+      writing_style: data.writing_style,
+      keys: data.keywords,
+    };
+    const { isError } = await request("/news/generate", "POST", createNewsPayload);
+    if (isError) {
+      toast({ message: "Error gan", type: "error" });
+    }
   };
 
   console.log(watch());
@@ -113,7 +127,14 @@ const DocumentForm = ({}: { defaultValues?: News }) => {
         />
       </div>
       <div className=" w-full">
-        <AiTimesButton color="primary" size="lg" className="mb-8 w-full" disabled={!isValid} type="submit">
+        <AiTimesButton
+          color="primary"
+          size="lg"
+          className="mb-8 w-full"
+          disabled={!isValid}
+          type="button"
+          onClick={handleSubmit(onSubmitForm)}
+        >
           Generate
         </AiTimesButton>
       </div>
