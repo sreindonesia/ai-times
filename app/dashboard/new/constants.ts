@@ -18,11 +18,11 @@ export const TONE_OPTIONS = [
 export const LANG_OPTIONS = [
   {
     label: "English",
-    value: "EN",
+    value: "English",
   },
   {
     label: "Bahasa Indonesia",
-    value: "ID",
+    value: "Indonesia",
   },
 ];
 
