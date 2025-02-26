@@ -7,12 +7,13 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { addDocumentSchema, AddDocumentType } from "../types";
 import FormDropdownSingle from "@/app/components/Forms/Dropdown/FormDropdownSingle";
-import { LANG_OPTIONS, TONE_OPTIONS } from "../constants";
+import { LANG_OPTIONS, TONE_OPTIONS, WRITING_STYLE_OPTIONS } from "../constants";
 import FormTextAreaWithChip from "@/app/components/Forms/TextArea/FormTextAreaWithChip";
 import AiTimesButton from "@/app/components/Button";
 import { News } from "../../types";
+import FormTextArea from "@/app/components/Forms/TextArea/FormTextArea";
 
-const DocumentForm = ({ defaultValues }: { defaultValues?: News }) => {
+const DocumentForm = ({}: { defaultValues?: News }) => {
   const {
     control,
     setValue,
@@ -20,10 +21,7 @@ const DocumentForm = ({ defaultValues }: { defaultValues?: News }) => {
     formState: { isValid },
   } = useForm<AddDocumentType>({
     resolver: zodResolver(addDocumentSchema),
-    defaultValues: {
-      title: defaultValues?.title,
-    },
-    mode: "onChange"
+    mode: "onChange",
   });
 
   return (
@@ -31,10 +29,23 @@ const DocumentForm = ({ defaultValues }: { defaultValues?: News }) => {
       <div className="flex flex-col gap-5">
         <div className="flex items-center gap-2.5">
           <Bars size={32} />
-          <div className="w-full">
-            <FormText label="" name="title" control={control} placeholder="Untitled Document" />
-          </div>
         </div>
+        <FormText label="Topic" name="topic" control={control} placeholder="Topik dokumen" />
+
+        <FormDropdownSingle
+          name="tone"
+          options={TONE_OPTIONS}
+          placeholder="Tone berita"
+          label="Tone"
+          setValue={
+            setValue as (
+              name: string,
+              value: string | number,
+              config?: Record<string, unknown>
+            ) => void
+          }
+          value={watch().tone}
+        />
         <FormDropdownSingle
           name="language"
           options={LANG_OPTIONS}
@@ -49,14 +60,11 @@ const DocumentForm = ({ defaultValues }: { defaultValues?: News }) => {
           }
           value={watch().language}
         />
-        <FormText label="Topic" name="topic" control={control} placeholder="Topik dokumen" />
         <FormDropdownSingle
           name="category"
-          options={[]}
-          addOptionLabel="Tambah kategori baru"
-          placeholder="Pilih kategori"
-          addOptionPlaceholder=""
-          label="Content Category"
+          options={WRITING_STYLE_OPTIONS}
+          placeholder="Pilih cara penulisan"
+          label="Writing Style"
           setValue={
             setValue as (
               name: string,
@@ -64,21 +72,13 @@ const DocumentForm = ({ defaultValues }: { defaultValues?: News }) => {
               config?: Record<string, unknown>
             ) => void
           }
-          value={watch().category}
+          value={watch().writing_style}
         />
-        <FormDropdownSingle
-          name="tone"
-          options={TONE_OPTIONS}
-          placeholder="Tone berita"
-          label="Set tone"
-          setValue={
-            setValue as (
-              name: string,
-              value: string | number,
-              config?: Record<string, unknown>
-            ) => void
-          }
-          value={watch().tone}
+        <FormTextArea
+          label="Additional Info"
+          name="additional_info"
+          control={control}
+          placeholder="Masukkan info tambahan"
         />
         <FormTextAreaWithChip
           label="Keywords (up to 5 words)"

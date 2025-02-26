@@ -11,7 +11,8 @@ const COLORS = {
   light:
     "border border-text-primary bg-white text-text-primary hover:bg-gray-100",
   blue: "bg-button-primary text-white hover:bg-blue-900",
-  primary: "bg-primary text-white hover:opacity:90"
+  primary: "bg-primary text-white hover:opacity:90",
+  "invert-primary": "bg-white text-primary border border-primary",
 };
 
 interface AiTimesButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {

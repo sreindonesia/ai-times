@@ -29,7 +29,7 @@ const TextAreaWithChip = ({
   return (
     <div className="flex flex-col border border-[#D9D9D9] rounded-lg pt-3 px-4 pb-4 gap-2">
       {currentValues.map((val, index) => (
-        <Badge key={`${val}-${index}-${Date.now()}`} className="w-max max-w-full px-3 py-2" size="sm" color="success">
+        <Badge key={`${val}-${index}-${Date.now()}`} className="w-max max-w-full px-3 py-2" size="sm" color="gray">
           <div className="flex items-center gap-2">
             <span className="break-all">{val}</span>
             <Close

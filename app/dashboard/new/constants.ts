@@ -23,3 +23,18 @@ export const LANG_OPTIONS = [
     value: "ID"
   }
 ]
+
+export const WRITING_STYLE_OPTIONS = [
+  {
+    label: "Casual",
+    value: "casual",
+  },
+  {
+    label: "Semi-Formal",
+    value: "semi-formal",
+  },
+  {
+    label: "Formal",
+    value: "formal",
+  },
+]
