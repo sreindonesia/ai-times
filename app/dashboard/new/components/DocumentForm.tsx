@@ -7,7 +7,12 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { addDocumentSchema, AddDocumentType } from "../types";
 import FormDropdownSingle from "@/app/components/Forms/Dropdown/FormDropdownSingle";
-import { LANG_OPTIONS, TONE_OPTIONS, WRITING_STYLE_OPTIONS } from "../constants";
+import {
+  DEFAULT_ADD_DOCUMENT,
+  LANG_OPTIONS,
+  TONE_OPTIONS,
+  WRITING_STYLE_OPTIONS,
+} from "../constants";
 import FormTextAreaWithChip from "@/app/components/Forms/TextArea/FormTextAreaWithChip";
 import AiTimesButton from "@/app/components/Button";
 import { News } from "../../types";
@@ -18,14 +23,25 @@ const DocumentForm = ({}: { defaultValues?: News }) => {
     control,
     setValue,
     watch,
+    handleSubmit,
     formState: { isValid },
   } = useForm<AddDocumentType>({
     resolver: zodResolver(addDocumentSchema),
+    defaultValues: DEFAULT_ADD_DOCUMENT,
     mode: "onChange",
   });
 
+  const onSubmitForm = (data: AddDocumentType) => {
+    console.log(data);
+  };
+
+  console.log(watch());
+
   return (
-    <div className="flex flex-col h-full pr-[30px] w-full py-5 pl-5 gap-5 justify-between">
+    <form
+      onSubmit={handleSubmit(onSubmitForm)}
+      className="flex flex-col h-full pr-[30px] w-full py-5 pl-5 gap-5 justify-between"
+    >
       <div className="flex flex-col gap-5">
         <div className="flex items-center gap-2.5">
           <Bars size={32} />
@@ -61,7 +77,7 @@ const DocumentForm = ({}: { defaultValues?: News }) => {
           value={watch().language}
         />
         <FormDropdownSingle
-          name="category"
+          name="writing_style"
           options={WRITING_STYLE_OPTIONS}
           placeholder="Pilih cara penulisan"
           label="Writing Style"
@@ -96,10 +112,12 @@ const DocumentForm = ({}: { defaultValues?: News }) => {
           max={3}
         />
       </div>
-      <AiTimesButton color="primary" size="lg" className="mb-5" disabled={!isValid}>
-        Generate
-      </AiTimesButton>
-    </div>
+      <div className=" w-full">
+        <AiTimesButton color="primary" size="lg" className="mb-8 w-full" disabled={!isValid} type="submit">
+          Generate
+        </AiTimesButton>
+      </div>
+    </form>
   );
 };
 
