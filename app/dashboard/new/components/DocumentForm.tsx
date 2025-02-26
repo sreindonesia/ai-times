@@ -36,7 +36,7 @@ const DocumentForm = ({}: { defaultValues?: News }) => {
 
   const onSubmitForm = async (data: AddDocumentType) => {
     const createNewsPayload = {
-      reference: data.references.toString(),
+      references: data.references,
       topic: data.topic,
       tone: data.tone,
       language: data.language,
@@ -49,7 +49,7 @@ const DocumentForm = ({}: { defaultValues?: News }) => {
     }
   };
 
-  console.log(watch());
+  //console.log(watch());
 
   return (
     <form

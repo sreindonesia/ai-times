@@ -3,15 +3,15 @@ import { AddDocumentType } from "./types";
 export const TONE_OPTIONS = [
   {
     label: "Neutral",
-    value: "neutral",
+    value: "Netral",
   },
   {
     label: "Negative",
-    value: "negative",
+    value: "Negative",
   },
   {
     label: "Positive",
-    value: "positive",
+    value: "Positif",
   },
 ];
 
@@ -29,7 +29,7 @@ export const LANG_OPTIONS = [
 export const WRITING_STYLE_OPTIONS = [
   {
     label: "Casual",
-    value: "casual",
+    value: "kasual",
   },
   {
     label: "Semi-Formal",
