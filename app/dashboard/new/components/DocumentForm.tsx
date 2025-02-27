@@ -15,13 +15,12 @@ import {
 } from "../constants";
 import FormTextAreaWithChip from "@/app/components/Forms/TextArea/FormTextAreaWithChip";
 import AiTimesButton from "@/app/components/Button";
-import { News } from "../../types";
 import FormTextArea from "@/app/components/Forms/TextArea/FormTextArea";
-import { request } from "@/services/request";
-import { useToast } from "@/app/components/Toast/useToast";
 
-const DocumentForm = ({}: { defaultValues?: News }) => {
-  const toast = useToast();
+interface DocumentFormProps {
+  onSubmit: (data: AddDocumentType) => void;
+}
+const DocumentForm = ({ onSubmit }: DocumentFormProps) => {
   const {
     control,
     setValue,
@@ -34,26 +33,11 @@ const DocumentForm = ({}: { defaultValues?: News }) => {
     mode: "onChange",
   });
 
-  const onSubmitForm = async (data: AddDocumentType) => {
-    const createNewsPayload = {
-      references: data.references,
-      topic: data.topic,
-      tone: data.tone,
-      language: data.language,
-      writing_style: data.writing_style,
-      keys: data.keywords,
-    };
-    const { isError } = await request("/news/generate", "POST", createNewsPayload);
-    if (isError) {
-      toast({ message: "Error gan", type: "error" });
-    }
-  };
-
   //console.log(watch());
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmitForm)}
+      onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col h-full pr-[30px] w-full py-5 pl-5 gap-5 justify-between"
     >
       <div className="flex flex-col gap-5">
@@ -133,7 +117,7 @@ const DocumentForm = ({}: { defaultValues?: News }) => {
           className="mb-8 w-full"
           disabled={!isValid}
           type="button"
-          onClick={handleSubmit(onSubmitForm)}
+          onClick={handleSubmit(onSubmit)}
         >
           Generate
         </AiTimesButton>
