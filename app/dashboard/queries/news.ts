@@ -42,7 +42,7 @@ const processGenerateNewsResponse = (res: GenerateNewsResponse): ProcessedGenera
   }
 
   const percentMatchedSum = result.plagiarism_check.matches.reduce(
-    (acc, curr) => acc + (curr.percentmatched || 0),
+    (acc, curr) => acc + (curr.percentage_matched || 0),
     0
   );
   const percentMatchedAvg = percentMatchedSum / result.plagiarism_check.matches.length;
@@ -52,8 +52,8 @@ const processGenerateNewsResponse = (res: GenerateNewsResponse): ProcessedGenera
     overall_plagiarism_percentage: `${percentMatchedAvg}%`,
     plagiarism_cost: result.plagiarism_cost,
     plagiarism_check: result.plagiarism_check.matches.map((match) => ({
-      percentageMatched: `${match.percentmatched}%`,
-      textmatched: match.textmatched || "",
+      percentageMatched: `${match.percentage_matched}%`,
+      textmatched: match.text_matched || "",
       url: match.url,
     })),
   };

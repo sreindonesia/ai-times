@@ -46,18 +46,9 @@ export interface PlagiarismCheck {
 }
 
 export interface Match {
-  index: number;
   url: string;
-  title: string;
-  textsnippet: string;
-  htmlsnippet: string;
-  minwordsmatched: string;
-  viewurl: string;
-  urlwords?: string;
-  wordsmatched?: number;
-  textmatched?: string;
-  percentmatched?: number;
-  urlerror?: string;
+  text_matched: string;
+  percentage_matched: number;
 }
 
 export interface ProcessedGenerateNewsResponse {
