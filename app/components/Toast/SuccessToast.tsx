@@ -8,7 +8,7 @@ const SuccessToast = ({ message }: { message?: string }) => {
     <>
       {createPortal(
         <Toast
-          className={`bg-green-100 border-2 border-green-700 rounded-lg p-3 z-50 fixed left-3 bottom-20 ${"flex"}`}
+          className={`bg-green-100 border-2 border-green-700 rounded-lg p-3 z-50 fixed left-1/2 -translate-x-1/2 bottom-20 ${"flex"}`}
         >
           <p className="text-green-700 text-sm">{message}</p>
         </Toast>,

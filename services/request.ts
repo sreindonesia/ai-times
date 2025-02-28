@@ -6,12 +6,20 @@ const aiTimesApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BE_API_URL,
 });
 
-export interface RequestReturnValue<T> {
-  isError: boolean;
+export interface RequestSuccessReturnValue<T> {
+  isError: false;
   message: string;
-  res: T | null;
+  res: T;
   statusCode: number;
 }
+export interface RequestErrorReturnValue {
+  isError: true;
+  message: string;
+  res: null;
+  statusCode: number;
+}
+
+export type RequestReturnValue<T> = RequestSuccessReturnValue<T> | RequestErrorReturnValue;
 
 export const noAuthRequest = async <T>(
   url: string,

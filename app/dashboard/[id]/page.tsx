@@ -18,14 +18,14 @@ export default function Page() {
       {data ? (
         <div className="flex">
           <div className="w-[300px] border-r border-zinc-300 h-screen overflow-auto shrink-0">
-            <DocumentForm defaultValues={data} />
+            <DocumentForm onSubmit={() => console.log("hello")} />
           </div>
           <div className="flex flex-col gap-5 p-5 w-full">
             <DocumentHeader onEdit={() => setIsEditingNews((prev) => !prev)} />
             <WYSIWYG initialContent={data.rawContent} readonly={!isEditingNews} />
           </div>
           <div className="shrink-0">
-            <DocumentSidebar />
+            <DocumentSidebar plagiarismPercentage={"0%"} plagiarismCheck={[]} />
           </div>
         </div>
       ) : (
