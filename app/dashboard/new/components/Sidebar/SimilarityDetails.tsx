@@ -2,11 +2,13 @@
 //import { Refresh } from 'flowbite-react-icons/outline'
 import React from "react";
 import SimilarityCard from "./SimilarityCard";
+import { PlagiarismCardProps } from "../../types";
 
 interface SimilarityDetailsProps {
   plagiarismPercentage: string;
+  plagiarismCheck: PlagiarismCardProps[];
 }
-const SimilarityDetails = ({ plagiarismPercentage }: SimilarityDetailsProps) => {
+const SimilarityDetails = ({ plagiarismPercentage, plagiarismCheck }: SimilarityDetailsProps) => {
   return (
     <div className="flex flex-col gap-[30px] px-5">
       {/* PERCENTAGE AND REFRESH BUTTON */}
@@ -29,8 +31,9 @@ const SimilarityDetails = ({ plagiarismPercentage }: SimilarityDetailsProps) => 
 					</div>
 				</AiTimesButton>*/}
       </div>
-
-      <SimilarityCard />
+      {plagiarismCheck.map((details) => (
+        <SimilarityCard {...details} key={details.url} />
+      ))}
     </div>
   );
 };

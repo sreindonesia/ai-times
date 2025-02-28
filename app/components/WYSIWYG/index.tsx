@@ -22,7 +22,7 @@ const WYSIWYG = ({ initialContent, onUpdate, readonly }: WYSIWYGProps) => {
         content={initialContent}
         editorProps={{
           attributes: {
-            class: ` ${!readonly && "h-full"} focus:outline-none p-4 bg-white overflow-y-auto`,
+            class: ` ${!readonly && "h-full"} focus:outline-none bg-white overflow-y-auto`,
           },
         }}
         onUpdate={onUpdate}

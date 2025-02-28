@@ -2,7 +2,6 @@
 
 import FormText from "@/app/components/Forms/FormText";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Bars } from "flowbite-react-icons/outline";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { addDocumentSchema, AddDocumentType } from "../types";
@@ -38,12 +37,10 @@ const DocumentForm = ({ onSubmit }: DocumentFormProps) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col h-full pr-[30px] w-full py-5 pl-5 gap-5 justify-between"
+      className="flex flex-col h-full w-full gap-5 justify-between"
     >
       <div className="flex flex-col gap-5">
-        <div className="flex items-center gap-2.5">
-          <Bars size={32} />
-        </div>
+        
         <FormText label="Topic" name="topic" control={control} placeholder="Topik dokumen" />
 
         <FormDropdownSingle

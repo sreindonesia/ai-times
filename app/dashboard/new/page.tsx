@@ -9,6 +9,8 @@ import { AddDocumentType } from "./types";
 import WYSIWYG from "@/app/components/WYSIWYG";
 import { useGenerateNews } from "../queries/news";
 import AiTimesLoader from "@/app/components/AiTimesLoader";
+import { ArrowLeft } from "flowbite-react-icons/outline";
+import Link from "next/link";
 
 const Page = () => {
   const [isEditingNews, setIsEditingNews] = useState(false);
@@ -35,7 +37,7 @@ const Page = () => {
       return (
         <>
           <DocumentHeader onEdit={() => setIsEditingNews((prev) => !prev)} />
-          <WYSIWYG readonly={!isEditingNews} initialContent={data.results[0].generated_content} />
+          <WYSIWYG readonly={!isEditingNews} initialContent={data.generated_content} />
         </>
       );
     }
@@ -44,15 +46,18 @@ const Page = () => {
 
   return (
     <div className="flex">
-      <div className="w-[300px] border-r border-zinc-300 h-screen overflow-auto shrink-0">
+      <div className="w-[300px] border-r border-zinc-300 h-screen overflow-auto pr-[30px]  py-5 pl-5 shrink-0">
+        <Link href={"/dashboard"} className="flex items-center gap-2.5 mb-5">
+          <ArrowLeft size={32} />
+          Back to home
+        </Link>
         <DocumentForm onSubmit={onSubmitForm} />
       </div>
       <div className="flex flex-col gap-5 p-5 w-full">{renderMainContent()}</div>
       <div className="shrink-0">
         <DocumentSidebar
-          plagiarismPercentage={
-            data ? (data.results[0].plagiarism_cost * 100).toFixed(0) + "%" : "N/A"
-          }
+          plagiarismPercentage={data ? data.overall_plagiarism_percentage : "N/A"}
+          plagiarismCheck={data?.plagiarism_check || []}
         />
       </div>
     </div>

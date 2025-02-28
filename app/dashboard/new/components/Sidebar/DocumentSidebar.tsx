@@ -2,11 +2,13 @@
 import React from "react";
 import { Tabs } from "flowbite-react";
 import SimilarityDetails from "./SimilarityDetails";
+import { PlagiarismCardProps } from "../../types";
 
 interface DocumentSidebarProps {
   plagiarismPercentage: string;
+  plagiarismCheck: PlagiarismCardProps[];
 }
-const DocumentSidebar = ({ plagiarismPercentage }: DocumentSidebarProps) => {
+const DocumentSidebar = ({ plagiarismPercentage, plagiarismCheck }: DocumentSidebarProps) => {
   return (
     <div className="w-[300px] h-screen border-l border-zinc-300">
       <Tabs
@@ -31,7 +33,10 @@ const DocumentSidebar = ({ plagiarismPercentage }: DocumentSidebarProps) => {
         }}
       >
         <Tabs.Item active title="Overview">
-          <SimilarityDetails plagiarismPercentage={plagiarismPercentage} />
+          <SimilarityDetails
+            plagiarismPercentage={plagiarismPercentage}
+            plagiarismCheck={plagiarismCheck}
+          />
         </Tabs.Item>
         {/*<Tabs.Item title="Version History" >
         Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to

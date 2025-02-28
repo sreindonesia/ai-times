@@ -25,7 +25,7 @@ export default function Page() {
             <WYSIWYG initialContent={data.rawContent} readonly={!isEditingNews} />
           </div>
           <div className="shrink-0">
-            <DocumentSidebar plagiarismPercentage={"0%"} />
+            <DocumentSidebar plagiarismPercentage={"0%"} plagiarismCheck={[]} />
           </div>
         </div>
       ) : (

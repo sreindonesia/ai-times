@@ -33,9 +33,53 @@ export interface GenerateNewsResponse {
 export interface GenerateNewsResult {
   cleaned_content: string;
   generated_content: string;
-  plagiarism_check: string;
+  plagiarism_check: PlagiarismCheck;
   /**
-   * plagiarism percentage in float (e.g. 0.0345123)
+   * Copyscape API cost in USD
    */
   plagiarism_cost: number;
+}
+
+export interface PlagiarismCheck {
+  status: string;
+  matches: Match[];
+}
+
+export interface Match {
+  index: number;
+  url: string;
+  title: string;
+  textsnippet: string;
+  htmlsnippet: string;
+  minwordsmatched: string;
+  viewurl: string;
+  urlwords?: string;
+  wordsmatched?: number;
+  textmatched?: string;
+  percentmatched?: number;
+  urlerror?: string;
+}
+
+export interface ProcessedGenerateNewsResponse {
+  /**
+   * 
+  HTML string
+ */
+  generated_content: string;
+  overall_plagiarism_percentage: string;
+  plagiarism_check: PlagiarismCardProps[];
+  /**
+   * The text content without HTML
+   */
+  cleaned_content: string;
+  /**
+   * Copyscape API cost in USD
+   */
+  plagiarism_cost: number;
+}
+
+export interface PlagiarismCardProps {
+  textmatched: string;
+  url: string;
+  percentageMatched: string;
 }

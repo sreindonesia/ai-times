@@ -1,7 +1,11 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { News } from "../types";
 import { request } from "@/services/request";
-import { GenerateNewsRequestPayload, GenerateNewsResponse } from "../new/types";
+import {
+  GenerateNewsRequestPayload,
+  GenerateNewsResponse,
+  ProcessedGenerateNewsResponse,
+} from "../new/types";
 import { useToast } from "@/app/components/Toast/useToast";
 
 export const useNewsDetail = (id: string) => {
@@ -25,6 +29,36 @@ export const useNewsDetail = (id: string) => {
   };
 };
 
+const processGenerateNewsResponse = (res: GenerateNewsResponse): ProcessedGenerateNewsResponse => {
+  const result = res.results[0];
+  if (result.plagiarism_check.status === "No plagiarism detected") {
+    return {
+      cleaned_content: result.cleaned_content,
+      generated_content: result.generated_content,
+      overall_plagiarism_percentage: "0%",
+      plagiarism_cost: result.plagiarism_cost,
+      plagiarism_check: [],
+    };
+  }
+
+  const percentMatchedSum = result.plagiarism_check.matches.reduce(
+    (acc, curr) => acc + (curr.percentmatched || 0),
+    0
+  );
+  const percentMatchedAvg = percentMatchedSum / result.plagiarism_check.matches.length;
+  return {
+    cleaned_content: result.cleaned_content,
+    generated_content: result.generated_content,
+    overall_plagiarism_percentage: `${percentMatchedAvg}%`,
+    plagiarism_cost: result.plagiarism_cost,
+    plagiarism_check: result.plagiarism_check.matches.map((match) => ({
+      percentageMatched: `${match.percentmatched}%`,
+      textmatched: match.textmatched || "",
+      url: match.url,
+    })),
+  };
+};
+
 export const useGenerateNews = () => {
   const toast = useToast();
   const { data, isPending, error, mutate } = useMutation({
@@ -37,7 +71,7 @@ export const useGenerateNews = () => {
       if (isError) {
         throw new Error(message);
       }
-      return res;
+      return processGenerateNewsResponse(res);
     },
     onError: (err) => toast({ message: err.message, type: "error" }),
     onSuccess: () => {
