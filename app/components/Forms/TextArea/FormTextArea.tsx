@@ -10,10 +10,19 @@ interface TextProps {
   name: string;
   placeholder?: string;
   inputClassName?: string;
+  required?: boolean;
 }
 
 type FormTextAreaProps<T extends FieldValues> = TextProps & UseControllerProps<T>;
-const FormTextArea = <T extends FieldValues>({ control, label, name, placeholder, inputClassName, disabled }: FormTextAreaProps<T>) => {
+const FormTextArea = <T extends FieldValues>({
+  control,
+  label,
+  name,
+  placeholder,
+  inputClassName,
+  disabled,
+  required,
+}: FormTextAreaProps<T>) => {
   const {
     formState: { errors },
   } = useController<T>({ name, control });
@@ -21,6 +30,7 @@ const FormTextArea = <T extends FieldValues>({ control, label, name, placeholder
     <div className="flex flex-col">
       <Label htmlFor={name} className="mb-2 font-medium text-sm text-gray-500">
         {label}
+        {required && <span className="text-red-500">*</span>}
       </Label>
       <Controller
         name={name}

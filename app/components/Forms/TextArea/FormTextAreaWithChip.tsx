@@ -13,10 +13,19 @@ interface TextProps {
   value: string[];
   max?: number;
   setValue: (name: string, value: string[], config?: Record<string, unknown>) => void;
+  required?: boolean;
   placeholder?: string;
 }
 
-const FormTextAreaWithChip = ({ setValue, value, label, name, max, placeholder }: TextProps) => {
+const FormTextAreaWithChip = ({
+  setValue,
+  value,
+  label,
+  name,
+  max,
+  placeholder,
+  required,
+}: TextProps) => {
   const onClickEnterHandler = (text: string) => {
     setValue(name, [...value, text], { shouldValidate: true });
   };
@@ -34,6 +43,7 @@ const FormTextAreaWithChip = ({ setValue, value, label, name, max, placeholder }
       {label && (
         <Label htmlFor={name} className="mb-2 font-medium text-sm text-gray-500">
           {label}
+          {required && <span className="text-red-500">*</span>}
         </Label>
       )}
       <TextAreaWithChip

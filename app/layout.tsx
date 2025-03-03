@@ -8,9 +8,9 @@ import ToastProvider from "./components/Toast/ToastProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Forum Pemimpin Redaksi",
+  title: "AITimes",
   description:
-    "Forum Pemred didirikan untuk memajukan pers dan memperjuangkan independensi pers dari pengaruh kekuasaan, kelompok kepentingan, kekuatan ekonomi, dan pihak-pihak lain.",
+    "",
 };
 
 export default function RootLayout({

@@ -4,7 +4,7 @@ import React from "react";
 
 const CreateNewDocumentCard = () => {
   return (
-    <Link href={"/dashboard/new"}>
+    <Link href={"/dashboard/new"} className="h-min">
       <div className="w-[150px] h-[200px] grid place-content-center bg-white shadow-md hover:bg-gray-50">
         <div className="flex flex-col items-center gap-2.5">
           <Plus size={48} />

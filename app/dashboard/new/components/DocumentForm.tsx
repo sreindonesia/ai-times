@@ -40,11 +40,17 @@ const DocumentForm = ({ onSubmit }: DocumentFormProps) => {
       className="flex flex-col h-full w-full gap-5 justify-between"
     >
       <div className="flex flex-col gap-5">
-        
-        <FormText label="Topic" name="topic" control={control} placeholder="Topik dokumen" />
+        <FormText
+          label="Topic"
+          name="topic"
+          control={control}
+          placeholder="Topik dokumen"
+          required
+        />
 
         <FormDropdownSingle
           name="tone"
+          required
           options={TONE_OPTIONS}
           placeholder="Tone berita"
           label="Tone"
@@ -59,6 +65,7 @@ const DocumentForm = ({ onSubmit }: DocumentFormProps) => {
         />
         <FormDropdownSingle
           name="language"
+          required
           options={LANG_OPTIONS}
           placeholder="Pilih bahasa"
           label="Bahasa"
@@ -73,6 +80,7 @@ const DocumentForm = ({ onSubmit }: DocumentFormProps) => {
         />
         <FormDropdownSingle
           name="writing_style"
+          required
           options={WRITING_STYLE_OPTIONS}
           placeholder="Pilih cara penulisan"
           label="Writing Style"
@@ -85,26 +93,28 @@ const DocumentForm = ({ onSubmit }: DocumentFormProps) => {
           }
           value={watch().writing_style}
         />
-        <FormTextArea
-          label="Additional Info"
-          name="additional_info"
-          control={control}
-          placeholder="Masukkan info tambahan"
-        />
-        <FormTextAreaWithChip
-          label="Keywords (up to 5 words)"
-          name="keywords"
-          setValue={setValue as (name: string, value: string[]) => void}
-          value={watch().keywords || []}
-          placeholder="Separate by new line"
-        />
         <FormTextAreaWithChip
           label="References (up to 3 links)"
+          required
           name="references"
           setValue={setValue as (name: string, value: string[]) => void}
           value={watch().references || []}
           placeholder="Separate by new line"
           max={3}
+        />
+        <FormTextAreaWithChip
+          label="Keywords (up to 5 keywords, with 5 word max for each keyword)"
+          name="keywords"
+          setValue={setValue as (name: string, value: string[]) => void}
+          value={watch().keywords || []}
+          placeholder="Separate by new line"
+        />
+
+        <FormTextArea
+          label="Additional Info"
+          name="additional_info"
+          control={control}
+          placeholder="Masukkan info tambahan"
         />
       </div>
       <div className=" w-full">

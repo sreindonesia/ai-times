@@ -12,10 +12,11 @@ const FormDropdownSingle = ({
   name,
   value,
   setValue,
-	onClick,
-	withSearch = false,
+  onClick,
+  withSearch = false,
   addOptionLabel,
   addOptionPlaceholder,
+  required,
   errorMessage,
 }: {
   options: DropdownOption[];
@@ -24,24 +25,25 @@ const FormDropdownSingle = ({
   label?: string;
   name: string;
   setValue: (name: string, value: string | number, config?: Record<string, unknown>) => void;
-	onClick?: (option: DropdownOption) => void;
-	withSearch?: boolean;
+  onClick?: (option: DropdownOption) => void;
+  withSearch?: boolean;
   addOptionLabel?: string;
+  required?: boolean;
   addOptionPlaceholder?: string;
   errorMessage?: string;
 }) => {
   const [renderedOptions, setRenderedOptions] = useState(options);
 
-	const [searchedValue, setSearchedValue] = useState("");
+  const [searchedValue, setSearchedValue] = useState("");
 
   const handleClick = (option: DropdownOption) => {
     setValue(name, option.value, { shouldValidate: true });
-		if (onClick) {
-			onClick(option)
-		}
+    if (onClick) {
+      onClick(option);
+    }
   };
 
-	const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchedValue(e.target.value);
     if (e.target.value) {
       const newOptions = options.filter((option) =>
@@ -59,7 +61,12 @@ const FormDropdownSingle = ({
   }, [options]);
   return (
     <div className={twMerge("flex flex-col gap-2 relative min-w-60")}>
-      {label && <p className="text-gray-500 font-medium text-sm">{label}</p>}
+      {label && (
+        <p className="text-gray-500 font-medium text-sm">
+          {label}
+          {required && <span className="text-red-500">*</span>}
+        </p>
+      )}
       <Dropdown
         label={
           <span
@@ -83,7 +90,7 @@ const FormDropdownSingle = ({
         }}
         enableTypeAhead={false}
       >
-				{withSearch && (
+        {withSearch && (
           <Dropdown.Item
             className="hover:bg-white"
             theme={{

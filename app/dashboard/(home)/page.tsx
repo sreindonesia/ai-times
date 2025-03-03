@@ -28,7 +28,7 @@ const Page = () => {
   return (
     <div className="flex">
       <Sidebar />
-      <div className="bg-slate-100 p-9 flex flex-col gap-6 w-full">
+      <div className="bg-slate-100 p-9 flex flex-col gap-6 w-full h-screen overflow-y-auto">
         <p>Searchbar</p>
         <p>Sort</p>
         <div className="flex flex-wrap gap-8 h-full">

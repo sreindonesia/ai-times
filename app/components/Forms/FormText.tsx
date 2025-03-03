@@ -12,6 +12,7 @@ interface TextProps {
   name: string;
   placeholder?: string;
   inputClassName?: string;
+  required?: boolean;
 }
 
 type FormTextProps<T extends FieldValues> = TextProps & UseControllerProps<T> & TextInputProps;
@@ -22,6 +23,7 @@ const FormText = <T extends FieldValues>({
   placeholder,
   inputClassName,
   disabled,
+  required,
   ...props
 }: FormTextProps<T>) => {
   const {
@@ -31,7 +33,7 @@ const FormText = <T extends FieldValues>({
     <div className="flex flex-col">
       {label && (
         <Label htmlFor={name} className="mb-2 font-medium text-sm text-gray-500">
-          {label}
+          {label}{required && <span className="text-red-500">*</span>}
         </Label>
       )}
       <Controller
