@@ -1,47 +1,64 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Sidebar from "./components/Sidebar";
 import CreateNewDocumentCard from "./components/CreateNewDocumentCard";
 import DocumentCard from "./components/DocumentCard";
-import { useQuery } from "@tanstack/react-query";
-import { request } from "@/services/request";
-import { News } from "../types";
+import { GetListNewsResponse } from "../types";
 import AiTimesLoader from "@/app/components/AiTimesLoader";
 import { useToast } from "@/app/components/Toast/useToast";
+import { useInfiniteScroll } from "@/app/utils/hooks/useInfiniteScroll";
 
 const Page = () => {
   const toast = useToast();
-  const { data, isLoading } = useQuery({
-    queryKey: ["news"],
-    queryFn: async () => {
-      const newsResponse = await request<News[]>("/news", "GET");
-      if (newsResponse.isError) {
-        toast({
-          message: newsResponse.message || "Something went wrong, please try again later",
-          type: "error",
-        });
-      }
-			return newsResponse
-    },
+
+  const { data, error, hasNextPage, isLoading, nextRef } = useInfiniteScroll<GetListNewsResponse>({
+    url: "/news",
+    withAuth: true,
   });
+
+  useEffect(() => {
+    if (error) {
+      toast({
+        message: error.message || "Something went wrong, please try again later",
+        type: "error",
+      });
+    }
+  }, [error, toast]);
+
+  console.log("curr data", data);
+
   return (
     <div className="flex">
       <Sidebar />
-      <div className="bg-slate-100 p-9 flex flex-col gap-6 w-full">
+      <div className="bg-slate-100 p-9 flex flex-col gap-6 w-full max-h-screen overflow-auto">
         <p>Searchbar</p>
         <p>Sort</p>
-        <div className="flex flex-wrap gap-8 h-full">
-          {isLoading ? (
-            <AiTimesLoader />
-          ) : (
+        <div className="flex flex-wrap gap-8 h-full mb-8">
+          {data ? (
             <>
               <CreateNewDocumentCard />
-              {data?.res &&
-                data.res.map((article) => <DocumentCard {...article} key={article.title} />)}
+              {data.pages.map((page, index) => (
+                <React.Fragment key={index}>
+                  {page.items.map((article) => (
+                    <DocumentCard {...article} key={article.id} />
+                  ))}
+                </React.Fragment>
+              ))}
             </>
+          ) : isLoading ? (
+            <AiTimesLoader />
+          ) : (
+            <></>
           )}
         </div>
+        {hasNextPage ? (
+          <div className="" ref={nextRef}>
+            Load more
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
