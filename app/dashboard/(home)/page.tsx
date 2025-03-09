@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import Sidebar from "./components/Sidebar";
 import CreateNewDocumentCard from "./components/CreateNewDocumentCard";
 import DocumentCard from "./components/DocumentCard";
@@ -9,7 +9,7 @@ import AiTimesLoader from "@/app/components/AiTimesLoader";
 import { useToast } from "@/app/components/Toast/useToast";
 import { useInfiniteScroll } from "@/app/utils/hooks/useInfiniteScroll";
 
-const Page = () => {
+const PageContent = () => {
   const toast = useToast();
 
   const { data, error, hasNextPage, isLoading, nextRef } = useInfiniteScroll<GetListNewsResponse>({
@@ -26,40 +26,46 @@ const Page = () => {
     }
   }, [error, toast]);
 
-  console.log("curr data", data);
-
   return (
-    <div className="flex">
-      <Sidebar />
-      <div className="bg-slate-100 p-9 flex flex-col gap-6 w-full h-screen overflow-y-auto">
-        <p>Searchbar</p>
-        <p>Sort</p>
-        <div className="flex flex-wrap gap-8 h-full mb-8">
-          {data ? (
-            <>
-              <CreateNewDocumentCard />
-              {data.pages.map((page, index) => (
-                <React.Fragment key={index}>
-                  {page.items.map((article) => (
-                    <DocumentCard {...article} key={article.id} />
-                  ))}
-                </React.Fragment>
-              ))}
-            </>
-          ) : isLoading ? (
-            <AiTimesLoader />
-          ) : (
-            <></>
-          )}
-        </div>
-        {hasNextPage ? (
-          <div className="" ref={nextRef}>
-            Load more
-          </div>
+    <div className="bg-slate-100 p-9 flex flex-col gap-6 w-full h-screen overflow-y-auto">
+      <p>Searchbar</p>
+      <p>Sort</p>
+      <div className="flex flex-wrap gap-8 h-full mb-8">
+        {data ? (
+          <>
+            <CreateNewDocumentCard />
+            {data.pages.map((page, index) => (
+              <React.Fragment key={index}>
+                {page.items.map((article) => (
+                  <DocumentCard {...article} key={article.id} />
+                ))}
+              </React.Fragment>
+            ))}
+          </>
+        ) : isLoading ? (
+          <AiTimesLoader />
         ) : (
           <></>
         )}
       </div>
+      {hasNextPage ? (
+        <div className="" ref={nextRef}>
+          Load more
+        </div>
+      ) : (
+        <></>
+      )}
+    </div>
+  );
+};
+
+const Page = () => {
+  return (
+    <div className="flex">
+      <Sidebar />
+      <Suspense>
+        <PageContent />
+      </Suspense>
     </div>
   );
 };
