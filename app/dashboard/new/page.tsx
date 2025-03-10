@@ -37,7 +37,7 @@ const Page = () => {
       return (
         <>
           <DocumentHeader onEdit={() => setIsEditingNews((prev) => !prev)} />
-          <WYSIWYG readonly={!isEditingNews} initialContent={data.generated_content} />
+          <WYSIWYG readonly={!isEditingNews} initialContent={data.generatedContent} />
         </>
       );
     }
@@ -56,8 +56,8 @@ const Page = () => {
       <div className="flex flex-col gap-5 p-5 w-full">{renderMainContent()}</div>
       <div className="shrink-0">
         <DocumentSidebar
-          plagiarismPercentage={data ? data.overall_plagiarism_percentage : "N/A"}
-          plagiarismCheck={data?.plagiarism_check || []}
+          plagiarismPercentage={data ? data.overallPlagiarismPercentage : "N/A"}
+          plagiarismCheck={data?.plagiarismCheck || []}
         />
       </div>
     </div>

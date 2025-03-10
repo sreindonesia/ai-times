@@ -1,3 +1,5 @@
+import { PlagiarismCheck } from "./new/types";
+
 export interface News {
   id: string;
   createdAt: string;
@@ -12,6 +14,7 @@ export interface News {
   tone: string;
   language: string;
   writingStyle: string;
+  plagiarismCheck: PlagiarismCheck
   keys: string[];
 }
 

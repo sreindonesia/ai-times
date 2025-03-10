@@ -8,6 +8,7 @@ import { GetListNewsResponse } from "../types";
 import AiTimesLoader from "@/app/components/AiTimesLoader";
 import { useToast } from "@/app/components/Toast/useToast";
 import { useInfiniteScroll } from "@/app/utils/hooks/useInfiniteScroll";
+import { processNewsPlagiarism } from "../queries/news";
 
 const PageContent = () => {
   const toast = useToast();
@@ -37,7 +38,7 @@ const PageContent = () => {
             {data.pages.map((page, index) => (
               <React.Fragment key={index}>
                 {page.items.map((article) => (
-                  <DocumentCard {...article} key={article.id} />
+                  <DocumentCard {...processNewsPlagiarism(article)} key={article.id} />
                 ))}
               </React.Fragment>
             ))}

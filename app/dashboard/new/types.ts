@@ -56,17 +56,17 @@ export interface ProcessedGenerateNewsResponse {
    * 
   HTML string
  */
-  generated_content: string;
-  overall_plagiarism_percentage: string;
-  plagiarism_check: PlagiarismCardProps[];
+  generatedContent: string;
+  overallPlagiarismPercentage: string;
+  plagiarismCheck: PlagiarismCardProps[];
   /**
    * The text content without HTML
    */
-  cleaned_content: string;
+  cleanedContent: string;
   /**
    * Copyscape API cost in USD
    */
-  plagiarism_cost: number;
+  plagiarismCost: number;
 }
 
 export interface PlagiarismCardProps {

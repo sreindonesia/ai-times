@@ -18,8 +18,9 @@ import FormTextArea from "@/app/components/Forms/TextArea/FormTextArea";
 
 interface DocumentFormProps {
   onSubmit: (data: AddDocumentType) => void;
+  defaultValues?: AddDocumentType
 }
-const DocumentForm = ({ onSubmit }: DocumentFormProps) => {
+const DocumentForm = ({ onSubmit, defaultValues }: DocumentFormProps) => {
   const {
     control,
     setValue,
@@ -28,7 +29,7 @@ const DocumentForm = ({ onSubmit }: DocumentFormProps) => {
     formState: { isValid },
   } = useForm<AddDocumentType>({
     resolver: zodResolver(addDocumentSchema),
-    defaultValues: DEFAULT_ADD_DOCUMENT,
+    defaultValues: defaultValues || DEFAULT_ADD_DOCUMENT,
     mode: "onChange",
   });
 

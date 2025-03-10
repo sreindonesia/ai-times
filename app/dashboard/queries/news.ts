@@ -19,7 +19,7 @@ export const useNewsDetail = (id: string) => {
       if (isError || res === null) {
         throw new Error(message);
       }
-      return res;
+      return processNewsPlagiarism(res);
     },
   });
   return {
@@ -29,15 +29,40 @@ export const useNewsDetail = (id: string) => {
   };
 };
 
+export const processNewsPlagiarism = (news: News) => {
+  if (news.plagiarismCheck.status === "No plagiarism detected") {
+    return {
+      ...news,      
+      overallPlagiarismPercentage: "0%",
+      plagiarismCheck: [],
+    };
+  }
+
+  const percentMatchedSum = news.plagiarismCheck.matches.reduce(
+    (acc, curr) => acc + (curr.percentage_matched || 0),
+    0
+  );
+  const percentMatchedAvg = percentMatchedSum / news.plagiarismCheck.matches.length;
+  return {    
+    ...news,
+    overallPlagiarismPercentage: `${percentMatchedAvg}%`,
+    plagiarismCheck: news.plagiarismCheck.matches.map((match) => ({
+      percentageMatched: `${match.percentage_matched}%`,
+      textmatched: match.text_matched || "",
+      url: match.url,
+    })),
+  };
+}
+
 const processGenerateNewsResponse = (res: GenerateNewsResponse): ProcessedGenerateNewsResponse => {
   const result = res.results[0];
   if (result.plagiarism_check.status === "No plagiarism detected") {
     return {
-      cleaned_content: result.cleaned_content,
-      generated_content: result.generated_content,
-      overall_plagiarism_percentage: "0%",
-      plagiarism_cost: result.plagiarism_cost,
-      plagiarism_check: [],
+      cleanedContent: result.cleaned_content,
+      generatedContent: result.generated_content,
+      overallPlagiarismPercentage: "0%",
+      plagiarismCost: result.plagiarism_cost,
+      plagiarismCheck: [],
     };
   }
 
@@ -47,11 +72,11 @@ const processGenerateNewsResponse = (res: GenerateNewsResponse): ProcessedGenera
   );
   const percentMatchedAvg = percentMatchedSum / result.plagiarism_check.matches.length;
   return {
-    cleaned_content: result.cleaned_content,
-    generated_content: result.generated_content,
-    overall_plagiarism_percentage: `${percentMatchedAvg}%`,
-    plagiarism_cost: result.plagiarism_cost,
-    plagiarism_check: result.plagiarism_check.matches.map((match) => ({
+    cleanedContent: result.cleaned_content,
+    generatedContent: result.generated_content,
+    overallPlagiarismPercentage: `${percentMatchedAvg}%`,
+    plagiarismCost: result.plagiarism_cost,
+    plagiarismCheck: result.plagiarism_check.matches.map((match) => ({
       percentageMatched: `${match.percentage_matched}%`,
       textmatched: match.text_matched || "",
       url: match.url,
