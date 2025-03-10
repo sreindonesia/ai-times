@@ -14,8 +14,9 @@ export interface News {
   tone: string;
   language: string;
   writingStyle: string;
-  plagiarismCheck: PlagiarismCheck
+  plagiarismCheck: PlagiarismCheck;
   keys: string[];
+  contentType: string;
 }
 
 export interface Pagination {

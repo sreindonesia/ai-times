@@ -3,6 +3,7 @@ import { z } from "zod";
 export const addDocumentSchema = z.object({
   topic: z.string().min(1),
   language: z.string().min(2, "Bahasa harus berupa EN atau ID"),
+  content_type: z.string().min(1),
   tone: z.string().min(1),
   keywords: z
     .array(

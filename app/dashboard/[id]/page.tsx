@@ -27,6 +27,7 @@ export default function Page() {
       language: data.language,
       writing_style: data.writing_style,
       keys: data.keywords,
+      content_type: data.content_type,
     };
     mutate(createNewsPayload);
   };
@@ -45,6 +46,7 @@ export default function Page() {
                 ...data,
                 keywords: data.keys,
                 additional_info: "",
+                content_type: data.contentType,
                 writing_style: data.writingStyle,
               }}
               onSubmit={onSubmitForm}

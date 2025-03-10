@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { addDocumentSchema, AddDocumentType } from "../types";
 import FormDropdownSingle from "@/app/components/Forms/Dropdown/FormDropdownSingle";
 import {
+  CONTENT_TYPE_OPTIONS,
   DEFAULT_ADD_DOCUMENT,
   LANG_OPTIONS,
   TONE_OPTIONS,
@@ -50,10 +51,25 @@ const DocumentForm = ({ onSubmit, defaultValues }: DocumentFormProps) => {
         />
 
         <FormDropdownSingle
+          name="content_type"
+          required
+          options={CONTENT_TYPE_OPTIONS}
+          placeholder="Tipe konten"
+          label="Content Type"
+          setValue={
+            setValue as (
+              name: string,
+              value: string | number,
+              config?: Record<string, unknown>
+            ) => void
+          }
+          value={watch().content_type}
+        />
+        <FormDropdownSingle
           name="tone"
           required
           options={TONE_OPTIONS}
-          placeholder="Tone berita"
+          placeholder="Tone dokumen"
           label="Tone"
           setValue={
             setValue as (

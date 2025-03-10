@@ -25,6 +25,7 @@ const Page = () => {
       language: data.language,
       writing_style: data.writing_style,
       keys: data.keywords,
+      content_type: data.content_type,
     };
     mutate(createNewsPayload);
   };

@@ -41,6 +41,17 @@ export const WRITING_STYLE_OPTIONS = [
   },
 ];
 
+export const CONTENT_TYPE_OPTIONS = [
+  {
+    label: "News",
+    value: "berita",
+  },
+  {
+    label: "Caption",
+    value: "caption",
+  },
+];
+
 export const DEFAULT_ADD_DOCUMENT: AddDocumentType = {
   additional_info: "",
   keywords: [],
@@ -49,4 +60,5 @@ export const DEFAULT_ADD_DOCUMENT: AddDocumentType = {
   tone: "",
   topic: "",
   writing_style: "",
+  content_type: "",
 };
