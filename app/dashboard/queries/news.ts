@@ -54,8 +54,11 @@ export const processNewsPlagiarism = (news: News) => {
   };
 }
 
-const processGenerateNewsResponse = (res: GenerateNewsResponse): ProcessedGenerateNewsResponse => {
+const processGenerateNewsResponse = (res: GenerateNewsResponse): ProcessedGenerateNewsResponse | null => {
   const result = res.results[0];
+  if ("error" in result) {
+    return null
+  }
   if (result.plagiarism_check.status === "No plagiarism detected") {
     return {
       cleanedContent: result.cleaned_content,
@@ -96,9 +99,12 @@ export const useGenerateNews = () => {
       if (isError) {
         throw new Error(message);
       }
-      return processGenerateNewsResponse(res);
+      const processedNews = processGenerateNewsResponse(res);
+      if (!processedNews) {
+        throw new Error("Oops we can’t process your references. Please change references and try again")
+      }
+      return processedNews
     },
-    onError: (err) => toast({ message: err.message, type: "error" }),
     onSuccess: () => {
       toast({ message: "Success generate news", type: "success" });
     },

@@ -28,7 +28,7 @@ export interface GenerateNewsRequestPayload {
   keys: string[];
 }
 export interface GenerateNewsResponse {
-  results: Array<GenerateNewsResult>;
+  results: Array<GenerateNewsResult | { error: string }>  ;
 }
 
 export interface GenerateNewsResult {

@@ -11,11 +11,12 @@ import { useGenerateNews } from "../queries/news";
 import AiTimesLoader from "@/app/components/AiTimesLoader";
 import { ArrowLeft } from "flowbite-react-icons/outline";
 import Link from "next/link";
+import ErrorGenerateNews from "./components/ErrorGenerateNews";
 
 const Page = () => {
   const [isEditingNews, setIsEditingNews] = useState(false);
 
-  const { data, isPending, mutate } = useGenerateNews();
+  const { data, isPending, mutate, error } = useGenerateNews();
 
   const onSubmitForm = async (data: AddDocumentType) => {
     const createNewsPayload = {
@@ -41,6 +42,9 @@ const Page = () => {
           <WYSIWYG readonly={!isEditingNews} initialContent={data.generatedContent} />
         </>
       );
+    }
+    if (error) {
+      return <ErrorGenerateNews message={error.message} />;
     }
     return <EmptyNews />;
   };
