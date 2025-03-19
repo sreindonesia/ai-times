@@ -14,7 +14,7 @@ export interface News {
   tone: string;
   language: string;
   writingStyle: string;
-  plagiarismCheck: PlagiarismCheck;
+  plagiarismCheck: PlagiarismCheck | { error: string };
   keys: string[];
   contentType: string;
 }

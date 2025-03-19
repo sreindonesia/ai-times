@@ -30,9 +30,16 @@ export const useNewsDetail = (id: string) => {
 };
 
 export const processNewsPlagiarism = (news: News) => {
+  if ("error" in news.plagiarismCheck) {
+    return {
+      ...news,
+      overallPlagiarismPercentage: "Error",
+      plagiarismCheck: [],
+    };
+  }
   if (news.plagiarismCheck.status === "No plagiarism detected") {
     return {
-      ...news,      
+      ...news,
       overallPlagiarismPercentage: "0%",
       plagiarismCheck: [],
     };
@@ -43,7 +50,7 @@ export const processNewsPlagiarism = (news: News) => {
     0
   );
   const percentMatchedAvg = percentMatchedSum / news.plagiarismCheck.matches.length;
-  return {    
+  return {
     ...news,
     overallPlagiarismPercentage: `${percentMatchedAvg}%`,
     plagiarismCheck: news.plagiarismCheck.matches.map((match) => ({
@@ -52,12 +59,23 @@ export const processNewsPlagiarism = (news: News) => {
       url: match.url,
     })),
   };
-}
+};
 
-const processGenerateNewsResponse = (res: GenerateNewsResponse): ProcessedGenerateNewsResponse | null => {
+const processGenerateNewsResponse = (
+  res: GenerateNewsResponse
+): ProcessedGenerateNewsResponse | null => {
   const result = res.results[0];
   if ("error" in result) {
-    return null
+    return null;
+  }
+  if ("error" in result.plagiarism_check) {
+    return {
+      cleanedContent: result.cleaned_content,
+      generatedContent: result.generated_content,
+      overallPlagiarismPercentage: "Error",
+      plagiarismCost: result.plagiarism_cost,
+      plagiarismCheck: [],
+    };
   }
   if (result.plagiarism_check.status === "No plagiarism detected") {
     return {
@@ -101,9 +119,11 @@ export const useGenerateNews = () => {
       }
       const processedNews = processGenerateNewsResponse(res);
       if (!processedNews) {
-        throw new Error("Oops we can’t process your references. Please change references and try again")
+        throw new Error(
+          "Oops we can’t process your references. Please change references and try again"
+        );
       }
-      return processedNews
+      return processedNews;
     },
     onSuccess: () => {
       toast({ message: "Success generate news", type: "success" });
