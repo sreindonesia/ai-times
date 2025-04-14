@@ -50,6 +50,10 @@ export const CONTENT_TYPE_OPTIONS = [
     label: "Caption",
     value: "caption",
   },
+  {
+    label: "Short News",
+    value: "berita pendek"
+  }
 ];
 
 export const DEFAULT_ADD_DOCUMENT: AddDocumentType = {
