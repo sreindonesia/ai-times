@@ -52,7 +52,7 @@ export const CONTENT_TYPE_OPTIONS = [
   },
   {
     label: "Short News",
-    value: "berita_pendek"
+    value: "berita pendek"
   }
 ];
 
