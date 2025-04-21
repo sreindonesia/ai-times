@@ -52,7 +52,7 @@ export default function Page() {
               onSubmit={onSubmitForm}
             />
           </div>
-          <div className="flex flex-col gap-5 p-5 w-full">
+          <div className="flex flex-col gap-5 p-5 w-full max-h-screen overflow-auto">
             <DocumentHeader onEdit={() => setIsEditingNews((prev) => !prev)} />
             <WYSIWYG
               initialContent={generatedData?.generatedContent || data.rawContent}

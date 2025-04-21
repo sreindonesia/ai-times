@@ -10,7 +10,7 @@ interface SimilarityDetailsProps {
 }
 const SimilarityDetails = ({ plagiarismPercentage, plagiarismCheck }: SimilarityDetailsProps) => {
   return (
-    <div className="flex flex-col gap-[30px] px-5">
+    <div className="flex flex-col gap-[30px] px-5 max-h-screen overflow-auto">
       {/* PERCENTAGE AND REFRESH BUTTON */}
       <div className="flex items-center justify-between gap-[30px]">
         <div className="flex flex-col gap-3">

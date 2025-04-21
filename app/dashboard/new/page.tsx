@@ -58,7 +58,7 @@ const Page = () => {
         </Link>
         <DocumentForm onSubmit={onSubmitForm} />
       </div>
-      <div className="flex flex-col gap-5 p-5 w-full">{renderMainContent()}</div>
+      <div className="flex flex-col gap-5 p-5 w-full max-h-screen overflow-auto">{renderMainContent()}</div>
       <div className="shrink-0">
         <DocumentSidebar
           plagiarismPercentage={data ? data.overallPlagiarismPercentage : "N/A"}
