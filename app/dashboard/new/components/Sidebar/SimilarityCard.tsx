@@ -12,7 +12,7 @@ const SimilarityCard = ({ percentageMatched, textmatched, url }: PlagiarismCardP
 
       <div className="flex items-center justify-between">
         <Link passHref href={url} className="hover:underline flex items-center gap-2">
-          <span className="">{url}</span>
+          <span className="break-all">{url}</span>
           <ArrowUpRightFromSquare size={16} color="#DEDEDE" />
         </Link>
 
