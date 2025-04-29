@@ -42,6 +42,13 @@ const PageContent = () => {
                 ))}
               </React.Fragment>
             ))}
+            {hasNextPage ? (
+              <div className="w-full" ref={nextRef}>
+                Load more
+              </div>
+            ) : (
+              <></>
+            )}
           </>
         ) : isLoading ? (
           <AiTimesLoader />
@@ -49,13 +56,6 @@ const PageContent = () => {
           <></>
         )}
       </div>
-      {hasNextPage ? (
-        <div className="" ref={nextRef}>
-          Load more
-        </div>
-      ) : (
-        <></>
-      )}
     </div>
   );
 };

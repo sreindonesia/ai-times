@@ -52,7 +52,7 @@ export const processNewsPlagiarism = (news: News) => {
   const percentMatchedAvg = percentMatchedSum / news.plagiarismCheck.matches.length;
   return {
     ...news,
-    overallPlagiarismPercentage: `${percentMatchedAvg}%`,
+    overallPlagiarismPercentage: `${parseFloat(percentMatchedAvg.toFixed(2))}%`,
     plagiarismCheck: news.plagiarismCheck.matches.map((match) => ({
       percentageMatched: `${match.percentage_matched}%`,
       textmatched: match.text_matched || "",
@@ -95,7 +95,7 @@ const processGenerateNewsResponse = (
   return {
     cleanedContent: result.cleaned_content,
     generatedContent: result.generated_content,
-    overallPlagiarismPercentage: `${percentMatchedAvg}%`,
+    overallPlagiarismPercentage: `${parseFloat(percentMatchedAvg.toFixed(2))}%`,
     plagiarismCost: result.plagiarism_cost,
     plagiarismCheck: result.plagiarism_check.matches.map((match) => ({
       percentageMatched: `${match.percentage_matched}%`,
