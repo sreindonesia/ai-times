@@ -16,7 +16,7 @@ import ErrorGenerateNews from "./components/ErrorGenerateNews";
 const Page = () => {
   const [isEditingNews, setIsEditingNews] = useState(false);
 
-  const { data, isPending, mutate, error } = useGenerateNews();
+  const { data, isPending, error, mutate } = useGenerateNews();
 
   const onSubmitForm = async (data: AddDocumentType) => {
     const createNewsPayload = {
